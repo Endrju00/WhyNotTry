@@ -14,33 +14,43 @@ struct ContentView: View {
 
     @State private var selected = "Archery"
     
+    @State private var id = 1
+    
     var body: some View {
-        Spacer()
-        
         VStack {
             Text("Why not try...").font(.largeTitle.bold())
-            
-            Circle()
-                .fill(colors.randomElement() ?? .blue)
                 .padding()
-                .overlay(
-                    Image(systemName: "figure.\(selected.lowercased())")
-                        .font(.system(size: 144))
-                        .foregroundColor(.white)
-                )
-            
-            Text("\(selected)!").font(.title)
-        }
-        
-        Spacer()
-        
-        Button("Try again") {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                selected = activities.randomElement() ?? "Archery"
+            Spacer()
+            VStack {
+                
+                
+                Circle()
+                    .fill(colors.randomElement() ?? .blue)
+                    .padding()
+                    .overlay(
+                        Image(systemName: "figure.\(selected.lowercased())")
+                            .font(.system(size: 144))
+                            .foregroundColor(.white)
+                    )
+                
+                Text("\(selected)!").font(.title)
             }
+            .id(id)
+            .transition(.slide)
             
+            
+            Spacer()
+            
+            Button("Try again") {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    selected = activities.randomElement() ?? "Archery"
+                    id += 1
+                }
+                
+            }
+            .buttonStyle(.borderedProminent)
+            .padding()
         }
-        .buttonStyle(.borderedProminent)
     }
 }
 
